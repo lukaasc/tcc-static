@@ -43,6 +43,10 @@ module.exports = {
         loaders: [
           'html-loader'
         ]
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000'
       }
     ]
   },
@@ -52,6 +56,10 @@ module.exports = {
     FailPlugin,
     new HtmlWebpackPlugin({
       template: conf.path.src('index.html')
+    }),
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery'
     }),
     new webpack.LoaderOptionsPlugin({
       options: {
