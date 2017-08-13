@@ -1,0 +1,44 @@
+<div class="login-component container">
+
+
+  <img src="../../../assets/img/login-background.png" class="img-responsive" alt="Image">
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form login-form">
+
+      <form data-ng-submit="$ctrl.login()" role="form">
+        <legend>
+          <i class="fa fa-user-circle" aria-hidden="true"></i> Entrar
+        </legend>
+
+        <div class="form-group">
+          <input type="text" class="form-control" data-ng-model="$ctrl.userId" placeholder="Usuário" required>
+          <input type="password" class="form-control" data-ng-model="$ctrl.password" placeholder="Senha" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Entrar <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+      </form>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 form register-form">
+
+      <form data-ng-submit="$ctrl.register()" role="form">
+        <legend>
+          <i class="fa fa-user-plus" aria-hidden="true"></i> Registrar
+        </legend>
+
+        <div class="form-group">
+          <input type="text" class="form-control" data-ng-model="$ctrl.newUser.userId" placeholder="Usuário" required>
+          <input type="password" class="form-control" data-ng-model="$ctrl.newUser.password" placeholder="Senha" required>
+          <input type="email" class="form-control" data-ng-model="$ctrl.newUser.email" placeholder="E-mail" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Registrar <i class="fa fa-chevron-circle-up" aria-hidden="true"></i></button>
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

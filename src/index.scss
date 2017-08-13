@@ -59,6 +59,21 @@ a {
   padding: 1rem;
   background-color: #cf4646;
   color: white;
+  .hospital-search-bar {
+    width: 50%;
+    #findHospitalBar {
+      border: none;
+      border-bottom: 2px solid lightgrey;
+      color: white;
+      background-color: transparent;
+    }
+    input::placeholder {
+      color: white;
+      text-align: center;
+      letter-spacing: 2px;
+      opacity: 0.5;
+    }
+  }
 }
 
 .title-h1 {
