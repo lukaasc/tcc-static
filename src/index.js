@@ -7,7 +7,7 @@ import 'font-awesome/scss/font-awesome.scss';
 
 // angular route for state control
 
-import routesConfig from './routes';
+import {routesConfig, checkUserAuthentication} from './routes';
 
 // custom services
 import {serviceModule} from './app/services';
@@ -28,6 +28,7 @@ import './index.scss';
 angular
   .module('app', [hospitalCardListModule, loginModule, serviceModule, 'ui.router'])
   .config(routesConfig)
+  .run(checkUserAuthentication)
   .component('app', main)
   .component('fountainHeader', header)
   .component('fountainTitle', title)

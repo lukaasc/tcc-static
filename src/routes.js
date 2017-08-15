@@ -1,17 +1,12 @@
-export default routesConfig;
-
 /** @ngInject */
-function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
+export function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
     .state('app', {
       abstract: true,
-      template: '<ui-view />',
-      resolve: {
-        resolvedUser: isAuthenticated
-      }
+      template: '<ui-view />'
     })
     .state('app.home', {
       url: '/',
@@ -23,12 +18,14 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     });
 }
 
-function isAuthenticated($http, $state) {
-  $http
-    .get('app/components/login/user.json')
-    .then(response => {
-      return response.data;
-    }, () => {
-      $state.go('login');
-    });
+export function checkUserAuthentication($http, $location, $log, $transitions, UserService) {
+  $transitions.onStart({
+    to: 'app.**'
+  }, trans => {
+    // const auth = trans.injector().get('AuthService');
+    if (!UserService.isAuthenticated() && $location.path !== '/login') {
+      // User isn't authenticated. Redirect to a login state
+      return trans.router.stateService.target('login');
+    }
+  });
 }
