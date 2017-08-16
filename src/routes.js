@@ -18,12 +18,11 @@ export function routesConfig($stateProvider, $urlRouterProvider, $locationProvid
     });
 }
 
-export function checkUserAuthentication($http, $location, $log, $transitions, UserService) {
+export function checkUserAuthentication($state, $location, $transitions, UserService) {
   $transitions.onStart({
     to: 'app.**'
   }, trans => {
-    // const auth = trans.injector().get('AuthService');
-    if (!UserService.isAuthenticated() && $location.path !== '/login') {
+    if (!UserService.isAuthenticated()) {
       // User isn't authenticated. Redirect to a login state
       return trans.router.stateService.target('login');
     }
