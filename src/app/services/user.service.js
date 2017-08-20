@@ -4,36 +4,35 @@ import {
 
 export class UserService extends BaseService {
   /** ngInject */
-  constructor($http, $state) {
+  constructor($http, $q) {
     super($http);
-    this._$state = $state;
+    this._$q = $q;
     this.userId = '';
+    this.email = '';
     this.token = '';
   }
 
-  doLogin(userId, password) {
-    this.doPost('/api/user/login', {
-      userId,
-      password
-    }).then(response => {
+  doLogin(user) {
+    const deferred = this._$q.defer();
+
+    this.doPost('/api/login/authenticate', user).then(response => {
       this.userId = response.data.userId;
       this.token = response.data.token;
-      this._$state.go('app.home');
+      this.email = response.data.email;
+
+      deferred.resolve(response);
+    }, error => {
+      deferred.reject(error);
     });
+
+    return deferred.promise;
   }
 
-  doLogout(userId, token) {
-    this.doPost('/api/user/logout', {
-      userId,
-      token
-    }).then(() => {
-      this.userId = '';
-      this.token = '';
-      this._$state.go('login');
-    });
+  doLogout() {
+
   }
 
   isAuthenticated() {
-    return this.userId && this.token;
+    return this.userId && this.token && this.email;
   }
 }

@@ -1,33 +1,46 @@
+import swal from 'sweetalert2';
 import './login.scss';
 
 class LoginController {
   /** @ngInject */
-  constructor(BaseService) {
+  constructor(UserService, $state) {
     this.user = {
       userId: '',
-      password: '',
-      token: '',
-      email: ''
+      password: ''
     };
     this.newUser = {};
 
-    this.BaseService = BaseService;
-  }
-
-  login() {
-    this.BaseService.doGet('app/components/login/user.json').then(response => {
-      this.userId = response.data.userId;
-      this.token = response.data.token;
-    });
+    this._state = $state;
+    this.UserService = UserService;
   }
 
   register() {
-    this.BaseService.doPut('app/components/login/user.json', {
-      userId: this.newUser.userId,
-      password: this.newUser.password
-    }).then(response => {
-      this.userId = response.data.userId;
-      this.password = response.data.password;
+    this.UserService.doPost('/api/login/register', this.newUser).then(response => {
+      swal(
+        'Sucesso!',
+        response.data,
+        'success'
+      );
+      this.newUser = {};
+    }, error => {
+      swal(
+        'Falha!',
+        error.data,
+        'error'
+      );
+    });
+  }
+
+  login() {
+    this.UserService.doLogin(this.user).then(() => {
+      this._state.go('app.home');
+    }, error => {
+      this.user = {};
+      swal(
+        'Falha!',
+        error.data,
+        'error'
+      );
     });
   }
 }

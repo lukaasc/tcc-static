@@ -24,6 +24,7 @@ import {loginModule} from './app/components/login';
 
 // stylesheet
 import './index.scss';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 angular
   .module('app', [hospitalCardListModule, loginModule, serviceModule, 'ui.router'])
