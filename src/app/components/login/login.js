@@ -5,7 +5,7 @@ class LoginController {
   /** @ngInject */
   constructor(UserService, $state) {
     this.user = {
-      userId: '',
+      username: '',
       password: ''
     };
     this.newUser = {};

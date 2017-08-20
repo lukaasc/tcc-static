@@ -7,7 +7,7 @@ export class UserService extends BaseService {
   constructor($http, $q) {
     super($http);
     this._$q = $q;
-    this.userId = '';
+    this.username = '';
     this.email = '';
     this.token = '';
   }
@@ -16,7 +16,7 @@ export class UserService extends BaseService {
     const deferred = this._$q.defer();
 
     this.doPost('/api/login/authenticate', user).then(response => {
-      this.userId = response.data.userId;
+      this.username = response.data.username;
       this.token = response.data.token;
       this.email = response.data.email;
 
@@ -33,6 +33,6 @@ export class UserService extends BaseService {
   }
 
   isAuthenticated() {
-    return this.userId && this.token && this.email;
+    return this.username && this.token && this.email;
   }
 }
