@@ -1,6 +1,7 @@
 // vendor external imports
 import angular from 'angular';
 import 'angular-ui-router';
+import 'angular-cookies';
 import 'jquery';
 import 'bootstrap';
 import 'font-awesome/scss/font-awesome.scss';
@@ -27,7 +28,7 @@ import './index.scss';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 angular
-  .module('app', [hospitalCardListModule, loginModule, serviceModule, 'ui.router'])
+  .module('app', [hospitalCardListModule, loginModule, serviceModule, 'ui.router', 'ngCookies'])
   .config(routesConfig)
   .run(checkUserAuthentication)
   .component('app', main)

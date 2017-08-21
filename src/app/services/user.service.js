@@ -3,22 +3,33 @@ import {
 } from './base.service';
 
 export class UserService extends BaseService {
-  /** ngInject */
-  constructor($http, $q) {
+  /** @ngInject */
+  constructor($cookies, $http, $q) {
     super($http);
     this._$q = $q;
-    this.username = '';
-    this.email = '';
-    this.token = '';
+    this._$cookies = $cookies;
+
+    this.currentUser = {
+      username: '',
+      email: '',
+      token: ''
+    };
   }
 
   doLogin(user) {
     const deferred = this._$q.defer();
 
     this.doPost('/api/login/authenticate', user).then(response => {
-      this.username = response.data.username;
-      this.token = response.data.token;
-      this.email = response.data.email;
+      this.currentUser.username = response.data.username;
+      this.currentUser.token = response.data.token;
+      this.currentUser.email = response.data.email;
+
+      const expireDate = new Date();
+      expireDate.setDate(expireDate.getDate() + 1);
+
+      this._$cookies.putObject('currentUser', this.currentUser, {
+        expires: expireDate
+      });
 
       deferred.resolve(response);
     }, error => {
@@ -33,6 +44,6 @@ export class UserService extends BaseService {
   }
 
   isAuthenticated() {
-    return this.username && this.token && this.email;
+    return this.currentUser && this.currentUser.username && this.currentUser.token && this.currentUser.email;
   }
 }

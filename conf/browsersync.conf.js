@@ -2,9 +2,12 @@ const conf = require('./gulp.conf');
 const proxy = require('http-proxy-middleware');
 
 const jsonPlaceholderProxy = proxy('/api', {
-  target: 'https://tcc-si.herokuapp.com',
+  target: 'localhost:8080',
   changeOrigin: true,
-  logLevel: 'debug'
+  logLevel: 'debug',
+  router: {
+    'localhost:3000/api': 'http://localhost:8080'
+  }
 });
 
 module.exports = function () {

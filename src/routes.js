@@ -18,13 +18,21 @@ export function routesConfig($stateProvider, $urlRouterProvider, $locationProvid
     });
 }
 
-export function checkUserAuthentication($state, $location, $transitions, UserService) {
+export function checkUserAuthentication($cookies, $transitions, UserService) {
   $transitions.onStart({
     to: 'app.**'
   }, trans => {
-    if (!UserService.isAuthenticated()) {
-      // User isn't authenticated. Redirect to a login state
+    const currentUser = $cookies.getObject('currentUser');
+
+    if (!UserService.isAuthenticated() && !currentUser) {
+      // User isn't authenticated. Redirect to login state
       return trans.router.stateService.target('login');
+    }
+
+    if (!UserService.currentUser.token) {
+      UserService.currentUser.username = currentUser.username;
+      UserService.currentUser.email = currentUser.email;
+      UserService.currentUser.token = currentUser.token;
     }
   });
 }
