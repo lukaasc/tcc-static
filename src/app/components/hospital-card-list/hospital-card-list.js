@@ -1,12 +1,19 @@
+import swal from 'sweetalert2';
 import './hospital-card-list.scss';
 
 class HospitalCardListController {
   /** @ngInject */
   constructor($http) {
     $http
-      .get('app/components/hospital-card-list/hospital-card-list.json')
+      .get('/api/queue/availableHospitals')
       .then(response => {
         this.cards = response.data;
+      }, err => {
+        swal(
+          'Erro!',
+          err.data,
+          'error'
+        );
       });
   }
 }

@@ -14,6 +14,28 @@
 }
 
 .hospital-card-h3 {
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin: 0 0 2rem 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+.queue-count {
+  text-align: center;
+  i {
+    font-size: 1.8rem;
+    color: rgba(255, 0, 0, 0.61);
+  }
+  p {
+    font-size: 2.5rem;
+  }
+}
+
+.general-info {
+  padding-top: 25px;
+}
+
+.action-buttons {
+  text-align: center;
+  margin-top: 210px;
 }

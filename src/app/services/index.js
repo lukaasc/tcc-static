@@ -8,9 +8,14 @@ import {
   UserService
 } from './user.service';
 
+import {
+  QueueService
+} from './queue.service';
+
 export const serviceModule = 'serviceModule';
 
 angular
   .module(serviceModule, [])
   .service('BaseService', BaseService)
-  .service('UserService', UserService);
+  .service('UserService', UserService)
+  .service('QueueService', QueueService);

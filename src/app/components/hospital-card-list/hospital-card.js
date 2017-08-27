@@ -1,8 +1,36 @@
+import swal from 'sweetalert2';
 import './hospital-card.scss';
 
+class HospitalCardController {
+  /** @ngInject */
+  constructor($log, QueueService, UserService) {
+    this._$log = $log;
+
+    this.QueueService = QueueService;
+    this.username = UserService.currentUser.username;
+  }
+
+  joinQueue() {
+    if (this.username) {
+      this.QueueService.joinQueue({
+        hospitalCode: this.card.hospitalCode,
+        username: this.username
+      }).then(response => {
+        response.data.queue = response.data.queue.length;
+      }, err => {
+        swal(
+          'Falha!',
+          err.data,
+          'error'
+        );
+      });
+    }
+  }
+}
 export const hospitalCard = {
   template: require('./hospital-card.html'),
   bindings: {
     card: '<'
-  }
+  },
+  controller: HospitalCardController
 };
