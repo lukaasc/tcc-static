@@ -17,6 +17,7 @@ class HospitalCardController {
         username: this.username
       }).then(response => {
         response.data.queue = response.data.queue.length;
+        this.card = response.data;
       }, err => {
         swal(
           'Falha!',
@@ -30,7 +31,8 @@ class HospitalCardController {
 export const hospitalCard = {
   template: require('./hospital-card.html'),
   bindings: {
-    card: '<'
+    card: '<',
+    isCurrentQueue: '<'
   },
   controller: HospitalCardController
 };

@@ -33,6 +33,7 @@ export function checkUserAuthentication($cookies, $transitions, UserService) {
       UserService.currentUser.username = currentUser.username;
       UserService.currentUser.email = currentUser.email;
       UserService.currentUser.token = currentUser.token;
+      UserService.currentUser.currentQueue = currentUser.currentQueue;
     }
   });
 }

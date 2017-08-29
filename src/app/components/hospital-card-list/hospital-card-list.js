@@ -3,7 +3,7 @@ import './hospital-card-list.scss';
 
 class HospitalCardListController {
   /** @ngInject */
-  constructor($http) {
+  constructor($http, UserService) {
     $http
       .get('/api/queue/availableHospitals')
       .then(response => {
@@ -15,6 +15,8 @@ class HospitalCardListController {
           'error'
         );
       });
+
+    this.userCurrentQueue = UserService.currentUser.currentQueue;
   }
 }
 

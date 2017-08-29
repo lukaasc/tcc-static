@@ -12,7 +12,8 @@ export class UserService extends BaseService {
     this.currentUser = {
       username: '',
       email: '',
-      token: ''
+      token: '',
+      currentQueue: ''
     };
   }
 
@@ -23,6 +24,7 @@ export class UserService extends BaseService {
       this.currentUser.username = response.data.username;
       this.currentUser.token = response.data.token;
       this.currentUser.email = response.data.email;
+      this.currentUser.currentQueue = response.data.currentQueue;
 
       const expireDate = new Date();
       expireDate.setDate(expireDate.getDate() + 1);
