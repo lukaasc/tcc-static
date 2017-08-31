@@ -14,4 +14,8 @@ export class QueueService extends BaseService {
   joinQueue(params) {
     return this.doPost('/api/queue/push', params);
   }
+
+  leaveQueue(params) {
+    return this.doPost('/api/queue/pop', params);
+  }
 }

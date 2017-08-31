@@ -5,7 +5,7 @@ class HospitalCardListController {
   /** @ngInject */
   constructor($http, UserService) {
     $http
-      .get('/api/queue/availableHospitals')
+      .get(`/api/queue/availableHospitals/${UserService.currentUser.username}`)
       .then(response => {
         this.cards = response.data;
       }, err => {
@@ -15,8 +15,6 @@ class HospitalCardListController {
           'error'
         );
       });
-
-    this.userCurrentQueue = UserService.currentUser.currentQueue;
   }
 }
 

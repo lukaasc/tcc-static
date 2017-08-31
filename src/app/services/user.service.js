@@ -12,8 +12,7 @@ export class UserService extends BaseService {
     this.currentUser = {
       username: '',
       email: '',
-      token: '',
-      currentQueue: ''
+      token: ''
     };
   }
 

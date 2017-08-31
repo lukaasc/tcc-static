@@ -7,6 +7,8 @@ class HospitalCardController {
     this._$log = $log;
 
     this.QueueService = QueueService;
+    this.UserService = UserService;
+
     this.username = UserService.currentUser.username;
   }
 
@@ -27,12 +29,28 @@ class HospitalCardController {
       });
     }
   }
+
+  leaveQueue() {
+    if (this.username) {
+      this.QueueService.leaveQueue({
+        hospitalCode: this.card.hospitalCode,
+        username: this.username
+      }).then(() => {
+        this.UserService.currentUser.currentQueue = null;
+      }, err => {
+        swal(
+          'Falha!',
+          err.data,
+          'error'
+        );
+      });
+    }
+  }
 }
 export const hospitalCard = {
   template: require('./hospital-card.html'),
   bindings: {
-    card: '<',
-    isCurrentQueue: '<'
+    card: '<'
   },
   controller: HospitalCardController
 };

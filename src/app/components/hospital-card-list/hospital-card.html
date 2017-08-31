@@ -1,85 +1,81 @@
-<div class="hospital-card well well-lg" data-ng-if="!$ctrl.isCurrentQueue">
-  <h3 class="hospital-card-h3">
-    {{ $ctrl.card.name }}
-  </h3>
+<div>
+  <div class="hospital-card well well-lg" data-ng-if="!$ctrl.card.currentQueue[0]">
+    <h3 class="hospital-card-h3">
+      {{ $ctrl.card.name }}
+    </h3>
 
-  <div class="queue-count">
+    <div class="queue-count">
 
-    <i class="fa fa-users" aria-hidden="true"></i>
-    <p>{{$ctrl.card.queue}}</p>
-  </div>
-
-  <div class="general-info">
-    <h4>Informações gerais: </h4>
-    <p>
-      <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i>
-      <span>{{ $ctrl.card.location.street }}</span>
-    </p>
-
-    <p>
-      <i class="fa fa-fw fa-map-o" aria-hidden="true"></i>
-      <span>{{ $ctrl.card.location.latitude }} - {{ $ctrl.card.location.longitude }}</span>
-    </p>
-  </div>
-
-  <div class="action-buttons row">
-
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <button type="button" class="btn btn-default" data-ng-disabled="true">Estatísticas</button>
+      <i class="fa fa-users" aria-hidden="true"></i>
+      <p>{{$ctrl.card.queue}}</p>
     </div>
 
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <button type="button" class="btn btn-primary" data-ng-click="$ctrl.joinQueue()">Ingressar</button>
+    <div class="general-info">
+      <h4>Informações gerais: </h4>
+      <p>
+        <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i>
+        <span>{{ $ctrl.card.location.street }}</span>
+      </p>
+
+      <p>
+        <i class="fa fa-fw fa-map-o" aria-hidden="true"></i>
+        <span>{{ $ctrl.card.location.latitude }} - {{ $ctrl.card.location.longitude }}</span>
+      </p>
     </div>
 
-  </div>
-</div>
+    <div class="action-buttons row">
 
-<div class="hospital-card well well-lg" data-ng-if="$ctrl.isCurrentQueue">
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <button type="button" class="btn btn-default" data-ng-disabled="true">Estatísticas</button>
+      </div>
 
-  <div class="row">
-
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <label>
-      Número: XX
-      </label>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <button type="button" class="btn btn-primary" data-ng-click="$ctrl.joinQueue()">Ingressar</button>
+      </div>
 
     </div>
-    <label>Tempo Médio: </label>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+  </div>
 
+  <div class="hospital-card well well-lg currentQueue" data-ng-if="$ctrl.card.currentQueue[0]">
+    <h3 class="hospital-card-h3">
+      {{ $ctrl.card.name }}
+    </h3>
+
+    <div>
+      <h4 class="currentPosition">
+        Número: {{$ctrl.currentPosition || N/A}}
+      </h4>
+
+      <h4 class="waitingTime">
+        Tempo médio: 00:00
+      </h4>
     </div>
 
-  </div>
+    <div class="queue-count">
 
-  <h3 class="hospital-card-h3">
-    {{ $ctrl.card.name }}
-  </h3>
-
-  <div class="queue-count">
-
-    <i class="fa fa-users" aria-hidden="true"></i>
-    <p>{{$ctrl.card.queue}}</p>
-  </div>
-
-  <div class="general-info">
-    <h4>Informações gerais: </h4>
-    <p>
-      <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i>
-      <span>{{ $ctrl.card.location.street }}</span>
-    </p>
-
-    <p>
-      <i class="fa fa-fw fa-map-o" aria-hidden="true"></i>
-      <span>{{ $ctrl.card.location.latitude }} - {{ $ctrl.card.location.longitude }}</span>
-    </p>
-  </div>
-
-  <div class="action-buttons row">
-
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <button type="button" class="btn btn-danger leave-queue" data-ng-click="$ctrl.joinQueue()">Abandonar</button>
+      <i class="fa fa-users" aria-hidden="true"></i>
+      <p>{{$ctrl.card.queue}}</p>
     </div>
 
+    <div class="general-info">
+      <h4>Informações gerais: </h4>
+      <p>
+        <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i>
+        <span>{{ $ctrl.card.location.street }}</span>
+      </p>
+
+      <p>
+        <i class="fa fa-fw fa-map-o" aria-hidden="true"></i>
+        <span>{{ $ctrl.card.location.latitude }} - {{ $ctrl.card.location.longitude }}</span>
+      </p>
+    </div>
+
+    <div class="action-buttons row">
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button type="button" class="btn btn-danger leave-queue" data-ng-click="$ctrl.leaveQueue()">Abandonar</button>
+      </div>
+
+    </div>
   </div>
 </div>
