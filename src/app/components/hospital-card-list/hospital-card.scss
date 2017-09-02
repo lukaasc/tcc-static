@@ -1,3 +1,21 @@
+@keyframes in {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes out {
+  from {
+    transform: rotateY(360deg);
+  }
+  to {
+    transform: rotateY(0deg);
+  }
+}
+
 .hospital-card {
   border: 1px solid lightgray;
   margin: 1rem;
@@ -5,6 +23,17 @@
   width: 300px;
   min-height: 500px;
   position: relative;
+  box-shadow: 0px 0px 4px 3px rgba(140, 140, 140, 0.2);
+  &.default {
+    animation-duration: 0.5s;
+    animation-name: in;
+    backface-visibility: hidden;
+  }
+  &.currentQueue {
+    animation-duration: 0.5s;
+    animation-name: out;
+    backface-visibility: hidden;
+  }
 }
 
 .hospital-logo {

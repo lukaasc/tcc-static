@@ -1,5 +1,5 @@
 <div>
-  <div class="hospital-card well well-lg" data-ng-if="!$ctrl.card.currentQueue[0]">
+  <div class="hospital-card well well-lg default" data-ng-if="!$ctrl.card.currentQueue[0]">
     <h3 class="hospital-card-h3">
       {{ $ctrl.card.name }}
     </h3>
@@ -43,7 +43,7 @@
 
     <div>
       <h4 class="currentPosition">
-        Número: {{$ctrl.currentPosition || N/A}}
+        Número: {{$ctrl.card.currentPosition + 1}}
       </h4>
 
       <h4 class="waitingTime">

@@ -18,8 +18,14 @@ class HospitalCardController {
         hospitalCode: this.card.hospitalCode,
         username: this.username
       }).then(response => {
-        response.data.queue = response.data.queue.length;
         this.card = response.data;
+        this.card.currentQueue = [{
+          isCurrent: true
+        }];
+
+        // calculates size of the queue and user's current position
+        this.card.currentPosition = response.data.queue.findIndex(element => element.username === this.username);
+        this.card.queue = response.data.queue.length;
       }, err => {
         swal(
           'Falha!',
@@ -35,8 +41,9 @@ class HospitalCardController {
       this.QueueService.leaveQueue({
         hospitalCode: this.card.hospitalCode,
         username: this.username
-      }).then(() => {
-        this.UserService.currentUser.currentQueue = null;
+      }).then(response => {
+        response.data.queue = response.data.queue.length;
+        this.card = response.data;
       }, err => {
         swal(
           'Falha!',
