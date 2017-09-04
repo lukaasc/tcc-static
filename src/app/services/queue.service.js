@@ -18,4 +18,8 @@ export class QueueService extends BaseService {
   leaveQueue(params) {
     return this.doPost('/api/queue/pop', params);
   }
+
+  getMediumTime(hospitalCode) {
+    return this.doGet(`/api/queue/getMediumTime/${hospitalCode}`);
+  }
 }

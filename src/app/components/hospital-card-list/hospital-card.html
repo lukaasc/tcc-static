@@ -1,8 +1,17 @@
 <div>
   <div class="hospital-card well well-lg default" data-ng-if="!$ctrl.card.currentQueue[0]">
     <h3 class="hospital-card-h3">
-      {{ $ctrl.card.name }}
+      <i class="fa fa-hospital-o" aria-hidden="true"></i> {{ $ctrl.card.name }}
     </h3>
+
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 time-section">
+        <span>
+              T. Médio: {{$ctrl.mediumTime}}
+          </span>
+      </div>
+    </div>
 
     <div class="queue-count">
 
@@ -38,7 +47,7 @@
 
   <div class="hospital-card well well-lg currentQueue" data-ng-if="$ctrl.card.currentQueue[0]">
     <h3 class="hospital-card-h3">
-      {{ $ctrl.card.name }}
+      <i class="fa fa-hospital-o" aria-hidden="true"></i> {{ $ctrl.card.name }}
     </h3>
 
     <div>
@@ -50,7 +59,7 @@
       <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 time-section">
           <span>
-              T. Médio: 00:00
+              T. Médio: {{$ctrl.mediumTime}}
           </span>
         </div>
 

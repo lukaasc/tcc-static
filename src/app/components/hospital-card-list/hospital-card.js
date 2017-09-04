@@ -16,12 +16,17 @@ class HospitalCardController {
     this.username = UserService.currentUser.username;
     this.arrivalTimeInterval = null;
     this.arrivalTimeDuration = null;
+    this.mediumTime = null;
   }
 
   $onInit() {
     if (this.card.currentQueue[0]) {
       this.startArrivalTimeCalc();
     }
+
+    this.QueueService.getMediumTime(this.card.hospitalCode).then(response => {
+      this.mediumTime = response.data;
+    });
   }
 
   joinQueue() {
@@ -59,6 +64,7 @@ class HospitalCardController {
       }).then(response => {
         this._$interval.cancel(this.arrivalTimeInterval);
 
+        this.arrivalTimeDuration = null;
         response.data.queue = response.data.queue.length;
         this.card = response.data;
       }, err => {
