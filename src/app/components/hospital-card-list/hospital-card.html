@@ -1,24 +1,51 @@
-<div>
-  <div class="hospital-card well well-lg default" data-ng-if="!$ctrl.card.currentQueue[0]">
+<div class="hospital-card panel panel-primary default" data-ng-if="!$ctrl.card.currentQueue[0]">
+  <div class="panel-heading">
+
     <h3 class="hospital-card-h3">
       <i class="fa fa-hospital-o" aria-hidden="true"></i> {{ $ctrl.card.name }}
     </h3>
 
 
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 time-section">
-        <span>
-              T. Médio: {{$ctrl.mediumTime}}
+    <div class="row header-info">
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <span class="badge">
+              T. Médio: {{$ctrl.mediumTime || n/a}}
+          </span>
+      </div>
+
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <span class="queue-count badge pull-right">
+              <i class="fa fa-users" aria-hidden="true"></i> {{$ctrl.card.queue}}
           </span>
       </div>
     </div>
 
-    <div class="queue-count">
+    <hr>
 
-      <i class="fa fa-users" aria-hidden="true"></i>
-      <p>{{$ctrl.card.queue}}</p>
+    <div class="row maps-info">
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="Carro">
+        <i class="fa fa-car" aria-hidden="true"></i>
+        <p>
+          40min
+        </p>
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="Transporte Público">
+        <i class="fa fa-bus" aria-hidden="true"></i>
+        <p>
+          40min
+        </p>
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="A Pé">
+        <i class="fa fa-male" aria-hidden="true"></i>
+        <p>
+          40min
+        </p>
+      </div>
     </div>
 
+  </div>
+
+  <div class="panel-body">
     <div class="general-info">
       <h4>Informações gerais: </h4>
       <p>
@@ -44,41 +71,65 @@
 
     </div>
   </div>
+</div>
 
-  <div class="hospital-card well well-lg currentQueue" data-ng-if="$ctrl.card.currentQueue[0]">
+<div class="hospital-card panel panel-danger currentQueue" data-ng-if="$ctrl.card.currentQueue[0]">
+  <div class="panel-heading">
     <h3 class="hospital-card-h3">
       <i class="fa fa-hospital-o" aria-hidden="true"></i> {{ $ctrl.card.name }}
     </h3>
 
-    <div>
-      <h4 class="currentPosition">
-        Número: {{$ctrl.card.currentPosition + 1}}
-      </h4>
+    <div class="row header-info">
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <span class="badge">
+                  T. Médio: {{$ctrl.mediumTime || n/a}}
+              </span>
+      </div>
+
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <span class="queue-count badge pull-right">
+                  <i class="fa fa-users" aria-hidden="true"></i> {{$ctrl.card.queue}}
+              </span>
+      </div>
+    </div>
 
 
-      <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 time-section">
-          <span>
-              T. Médio: {{$ctrl.mediumTime}}
-          </span>
-        </div>
+    <div class="row current-info">
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 current-position pull-left">
+        Posição: {{$ctrl.card.currentPosition + 1}}
+      </div>
 
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 time-section">
-          <span>
-              <i class="fa fa-fw fa-clock-o" aria-hidden="true"></i> 
-              {{$ctrl.arrivalTimeDuration}}
-          </span>
-        </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 arrival-duration pull-right">
+        <i class="fa fa-fw fa-clock-o" aria-hidden="true"></i> {{$ctrl.arrivalTimeDuration}}
       </div>
 
     </div>
 
-    <div class="queue-count">
+    <hr>
 
-      <i class="fa fa-users" aria-hidden="true"></i>
-      <p>{{$ctrl.card.queue}}</p>
+    <div class="row maps-info">
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="Carro">
+        <i class="fa fa-car" aria-hidden="true"></i>
+        <p>
+          40min
+        </p>
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="Transporte Público">
+        <i class="fa fa-bus" aria-hidden="true"></i>
+        <p>
+          40min
+        </p>
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="A Pé">
+        <i class="fa fa-male" aria-hidden="true"></i>
+        <p>
+          40min
+        </p>
+      </div>
     </div>
 
+  </div>
+  <div class="panel-body">
     <div class="general-info">
       <h4>Informações gerais: </h4>
       <p>
@@ -99,5 +150,7 @@
       </div>
 
     </div>
+
   </div>
+
 </div>

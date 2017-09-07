@@ -1,3 +1,4 @@
+$red: #cf4646;
 @keyframes in {
   from {
     transform: rotateY(0deg);
@@ -18,25 +19,36 @@
 
 .hospital-card {
   border: 1px solid lightgray;
-  margin: 1rem;
-  padding: 1rem;
   width: 300px;
   min-height: 500px;
   position: relative;
   box-shadow: 0px 0px 4px 3px rgba(140, 140, 140, 0.2);
+  hr {
+    margin: 15px auto;
+  }
   &.default {
     animation-duration: 0.5s;
     animation-name: in;
     backface-visibility: hidden;
+    .badge {
+      font-size: 1.2em;
+    }
   }
   &.currentQueue {
     animation-duration: 0.5s;
     animation-name: out;
     backface-visibility: hidden;
+    .panel-heading {
+      background-color: $red;
+      .current-info {
+        text-align: center;
+        margin-top: 15px;
+      }
+    }
   }
-  .time-section {
+  .maps-info {
     text-align: center;
-    margin-bottom: 20px;
+    font-size: 0.825em;
   }
 }
 
@@ -52,28 +64,11 @@
   margin: 0 0 2rem 0;
   text-align: center;
   font-weight: bold;
-  i {
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin: 10px;
-  }
 }
 
 h4 {
   text-align: center;
-  margin: 20px;
-}
-
-.queue-count {
-  text-align: center;
-  i {
-    font-size: 1.8rem;
-    color: rgba(255, 0, 0, 0.61);
-  }
-  p {
-    font-size: 2.5rem;
-  }
+  margin: 30px;
 }
 
 .action-buttons {
@@ -84,5 +79,6 @@ h4 {
   width: 100%;
   .leave-queue {
     width: 100%;
+    background-color: $red;
   }
 }
