@@ -1,18 +1,18 @@
 import swal from 'sweetalert2';
+import toastr from 'toastr/build/toastr.min.js';
 import './hospital-card.scss';
 import moment from 'moment/min/moment.min';
 
 class HospitalCardController {
 
   /** @ngInject */
-  constructor($interval, $log, $scope, QueueService, UserService, SocketService, toaster) {
+  constructor($interval, $log, $scope, QueueService, UserService, SocketService) {
     this._$interval = $interval;
     this._$log = $log;
 
     this.QueueService = QueueService;
     this.UserService = UserService;
     this.SocketService = SocketService;
-    this.toaster = toaster;
 
     this.username = UserService.currentUser.username;
     this.arrivalTimeInterval = null;
@@ -39,7 +39,7 @@ class HospitalCardController {
       this.card.queue = data.queue.length;
 
       if (this.card.currentQueue && this.card.currentQueue[0]) {
-        this.toaster.pop('info', this.card.hospitalCode, 'Sua fila atual sofreu alterações');
+        toastr.info('Sua fila atual sofreu alterações', this.card.name);
       }
 
       if ((this.card.currentPosition + 1) <= 0) {

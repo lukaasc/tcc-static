@@ -1,15 +1,14 @@
 {
   "dependencies": {
     "angular": "^1.6.2",
-    "angular-animate": "^1.6.6",
     "angular-cookies": "^1.6.6",
     "angular-ui-router": "1.0.0-beta.3",
-    "angularjs-toaster": "^2.2.0",
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
     "moment": "^2.18.1",
     "socket.io": "^2.0.3",
-    "sweetalert2": "^6.6.9"
+    "sweetalert2": "^6.6.9",
+    "toastr": "^2.1.2"
   },
   "devDependencies": {
     "@types/angular": "^1.6.6",
