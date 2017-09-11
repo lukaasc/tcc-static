@@ -2,6 +2,8 @@
 import angular from 'angular';
 import 'angular-ui-router';
 import 'angular-cookies';
+import 'angularjs-toaster';
+import 'angular-animate';
 import 'jquery';
 import 'bootstrap';
 import 'font-awesome/scss/font-awesome.scss';
@@ -26,9 +28,10 @@ import {loginModule} from './app/components/login';
 // stylesheet
 import './index.scss';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import 'angularjs-toaster/toaster.min.css';
 
 angular
-  .module('app', [hospitalCardListModule, loginModule, serviceModule, 'ui.router', 'ngCookies'])
+  .module('app', [hospitalCardListModule, loginModule, serviceModule, 'ui.router', 'ngCookies', 'toaster', 'ngAnimate'])
   .config(routesConfig)
   .run(checkUserAuthentication)
   .component('app', main)

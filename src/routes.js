@@ -18,7 +18,12 @@ export function routesConfig($stateProvider, $urlRouterProvider, $locationProvid
     });
 }
 
-export function checkUserAuthentication($cookies, $transitions, UserService) {
+export function checkUserAuthentication($cookies, $transitions, UserService, SocketService) {
+  /**
+   * Initiates socket.io for real time updates
+   */
+  SocketService.init();
+
   $transitions.onStart({
     to: 'app.**'
   }, trans => {

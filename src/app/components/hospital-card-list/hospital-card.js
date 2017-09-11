@@ -5,18 +5,21 @@ import moment from 'moment/min/moment.min';
 class HospitalCardController {
 
   /** @ngInject */
-  constructor($interval, $log, $timeout, QueueService, UserService) {
+  constructor($interval, $log, $scope, QueueService, UserService, SocketService, toaster) {
     this._$interval = $interval;
     this._$log = $log;
-    this._$timeout = $timeout;
 
     this.QueueService = QueueService;
     this.UserService = UserService;
+    this.SocketService = SocketService;
+    this.toaster = toaster;
 
     this.username = UserService.currentUser.username;
     this.arrivalTimeInterval = null;
     this.arrivalTimeDuration = null;
     this.mediumTime = null;
+
+    this._$scope = $scope;
   }
 
   $onInit() {
@@ -26,6 +29,25 @@ class HospitalCardController {
 
     this.QueueService.getMediumTime(this.card.hospitalCode).then(response => {
       this.mediumTime = response.data;
+    }, () => {
+      this._$log.debug(`Failed trying to retrive medium time for queue [${this.card.hospitalCode}]`);
+    });
+
+    this.SocketService.watch(this.card.hospitalCode, data => {
+      this.mediumTime = data.mediumTime;
+      this.card.currentPosition = data.queue.findIndex(element => element.username === this.username);
+      this.card.queue = data.queue.length;
+
+      if (this.card.currentQueue && this.card.currentQueue[0]) {
+        this.toaster.pop('info', this.card.hospitalCode, 'Sua fila atual sofreu alterações');
+      }
+
+      if ((this.card.currentPosition + 1) <= 0) {
+        this.card.currentQueue = [];
+        this._$interval.cancel(this.arrivalTimeInterval);
+      }
+
+      this._$scope.$apply();
     });
   }
 
@@ -97,6 +119,7 @@ class HospitalCardController {
     if (this.arrivalTimeInterval) {
       this._$interval.cancel(this.arrivalTimeInterval);
     }
+    this.SocketService.unWatch(this.card.hospitalCode);
   }
 
 }
