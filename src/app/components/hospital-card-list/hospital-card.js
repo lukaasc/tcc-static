@@ -34,11 +34,12 @@ class HospitalCardController {
     });
 
     this.SocketService.watch(this.card.hospitalCode, data => {
-      this.mediumTime = data.mediumTime;
-      this.card.currentPosition = data.queue.findIndex(element => element.username === this.username);
+      this.mediumTime = data.mediumTime ? data.mediumTime : this.mediumTime;
       this.card.queue = data.queue.length;
 
-      if (this.card.currentQueue && this.card.currentQueue[0]) {
+      if (!data.action && this.card.currentQueue && this.card.currentQueue[0]) {
+        this.card.currentPosition = data.queue.findIndex(element => element.username === this.username);
+
         toastr.info('Sua fila atual sofreu alterações', this.card.name);
       }
 
