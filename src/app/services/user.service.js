@@ -41,7 +41,8 @@ export class UserService extends BaseService {
   }
 
   doLogout() {
-
+    this._$cookies.remove('currentUser');
+    this.currentUser = {};
   }
 
   isAuthenticated() {
