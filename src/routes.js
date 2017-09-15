@@ -18,12 +18,20 @@ export function routesConfig($stateProvider, $urlRouterProvider, $locationProvid
     });
 }
 
-export function checkUserAuthentication($cookies, $transitions, UserService, SocketService) {
+export function init($cookies, $transitions, UserService, SocketService, LocationService) {
   /**
    * Initiates socket.io for real time updates
    */
   SocketService.init();
 
+  /**
+   * Tries to get user's current GeoLocation
+   */
+  LocationService.getLocation();
+
+  /**
+   * Listen for route state changes to check if user is authenticated
+   */
   $transitions.onStart({
     to: 'app.**'
   }, trans => {

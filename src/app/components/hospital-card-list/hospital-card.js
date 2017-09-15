@@ -6,12 +6,13 @@ import moment from 'moment/min/moment.min';
 class HospitalCardController {
 
   /** @ngInject */
-  constructor($interval, $log, $scope, QueueService, UserService, SocketService) {
+  constructor($interval, $log, $scope, QueueService, UserService, LocationService, SocketService) {
     this._$interval = $interval;
     this._$log = $log;
 
     this.QueueService = QueueService;
     this.UserService = UserService;
+    this.LocationService = LocationService;
     this.SocketService = SocketService;
 
     this.username = UserService.currentUser.username;
@@ -50,6 +51,11 @@ class HospitalCardController {
 
       this._$scope.$apply();
     });
+
+    /**
+     * Tries to calculate distance matrix from user's location to hospital location
+     */
+    this.LocationService.calculateDistanceMatrix(this.card.location);
   }
 
   joinQueue() {

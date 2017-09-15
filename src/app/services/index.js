@@ -12,6 +12,10 @@ import {
   QueueService
 } from './queue.service';
 
+import {
+  LocationService
+} from './location.service';
+
 import SocketService from './socket.service';
 
 export const serviceModule = 'serviceModule';
@@ -21,4 +25,5 @@ angular
   .service('BaseService', BaseService)
   .service('UserService', UserService)
   .service('QueueService', QueueService)
+  .service('LocationService', LocationService)
   .factory('SocketService', SocketService);
