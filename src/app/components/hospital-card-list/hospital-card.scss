@@ -17,6 +17,20 @@ $red: #cf4646;
   }
 }
 
+@mixin flip-in() {
+  animation-duration: 0.7s;
+  animation-name: in;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+@mixin flip-out() {
+  animation-duration: 0.7s;
+  animation-name: out;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
 // change visibility for large screens
 @media screen and (min-width: 1024px) {
   .hospital-card {
@@ -29,13 +43,11 @@ $red: #cf4646;
   border: 1px solid lightgray;
   position: relative;
   box-shadow: 0px 0px 4px 3px rgba(140, 140, 140, 0.2);
+  perspective: 1000px;
   hr {
     margin: 15px auto;
   }
   &.default {
-    animation-duration: 0.5s;
-    animation-name: in;
-    backface-visibility: hidden;
     .badge {
       font-size: 1.2em;
     }
@@ -45,12 +57,11 @@ $red: #cf4646;
   }
   .panel-heading {
     min-width: 270px;
+    @include flip-in();
   }
   &.currentQueue {
-    animation-duration: 0.5s;
-    animation-name: out;
-    backface-visibility: hidden;
     .panel-heading {
+      @include flip-out();
       background-color: $red;
       .current-info {
         text-align: center;
@@ -90,14 +101,15 @@ h4 {
 .action-buttons {
   text-align: center;
   display: inline-flex;
-  bottom: 11px;
-  right: 15px;
-  width: 100%;
   button {
     min-width: 105px;
   }
+  .btn-default,
+  .btn-primary {
+    @include flip-in();
+  }
   .leave-queue {
-    width: 100%;
+    @include flip-out();
     background-color: $red;
   }
 }
