@@ -16,8 +16,8 @@ import {serviceModule} from './app/services';
 // landing page components
 import {main} from './app/components/main';
 import {header} from './app/components/header';
-import {title} from './app/components/title';
 import {footer} from './app/components/footer';
+import {standBy} from './app/components/stand-by/stand-by';
 
 // custom components
 import {hospitalCardListModule} from './app/components/hospital-card-list';
@@ -34,5 +34,5 @@ angular
   .run(init)
   .component('app', main)
   .component('fountainHeader', header)
-  .component('fountainTitle', title)
-  .component('fountainFooter', footer);
+  .component('fountainFooter', footer)
+  .component('standBy', standBy);

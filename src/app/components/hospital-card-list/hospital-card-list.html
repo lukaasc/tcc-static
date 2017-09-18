@@ -1,11 +1,17 @@
 <div class="card-list-container">
 
+  <div class="hospital-search-bar">
+    <input data-ng-model="$ctrl.searchText" type="search" id="findHospitalBar" name="findHospital" class="form-control" placeholder="Filtrar hospitais... &#xF002;"
+      style="font-family:Arial, FontAwesome" />
+  </div>
+
   <div class="well well-sm">
     Hospitais disponíveis:
   </div>
 
+  <stand-by data-ng-if="$ctrl.loading"></stand-by>
   <div class="card-list">
-    <hospital-card ng-repeat="card in $ctrl.cards" card="card"></hospital-card>
+    <hospital-card ng-repeat="card in $ctrl.cards | filter: $ctrl.searchText" card="card"></hospital-card>
   </div>
 
 </div>
