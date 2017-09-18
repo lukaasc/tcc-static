@@ -1,4 +1,8 @@
+// const API_KEY = 'AIzaSyDz3fD4w5ymSTanTDm0Sp_o2nC1EJ18JJY';
+const REGION = 'pt-BR';
+
 export class LocationService {
+
   /** @ngInject */
   constructor($log, $window, $q) {
     this._$log = $log;
@@ -22,11 +26,19 @@ export class LocationService {
       });
   }
 
-  calculateDistanceMatrix(hospitalLocation) {
-    this.deferred.promise.then(location => {
-      this._$log.debug(`User GeoLocation ${location} ${hospitalLocation}`);
+  calculateDistanceMatrix(hospitalLocation, travelMode, callback) {
+    this.deferred.promise.then(position => {
+      this._$log.debug(`User GeoLocation ${position} ${hospitalLocation}`);
 
-      // make call to google api
+      /* eslint-disable */
+      const service = new google.maps.DistanceMatrixService();
+      service.getDistanceMatrix({
+        origins: [`${position.coords.latitude},${position.coords.longitude}`],
+        destinations: [`${hospitalLocation.latitude},${hospitalLocation.longitude}`],
+        travelMode,
+        region: REGION
+      }, callback);
+      /* eslint-enable */
     }, err => {
       this._$log.debug(`Unable to obtain user's location \n${err}`);
     });

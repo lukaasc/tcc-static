@@ -1,4 +1,4 @@
-<div class="hospital-card panel panel-primary default" data-ng-if="!$ctrl.card.currentQueue[0]">
+<div class="hospital-card panel panel-primary default" data-ng-show="!$ctrl.card.currentQueue[0]">
   <div class="panel-heading">
 
     <h3 class="hospital-card-h3">
@@ -26,19 +26,28 @@
       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="Carro">
         <i class="fa fa-car" aria-hidden="true"></i>
         <p>
-          40min
+          {{$ctrl.distance.DRIVING.distance}}
+        </p>
+        <p>
+          {{$ctrl.distance.DRIVING.duration.text}}
         </p>
       </div>
       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="Transporte Público">
         <i class="fa fa-bus" aria-hidden="true"></i>
         <p>
-          40min
+          {{$ctrl.distance.TRANSIT.distance}}
+        </p>
+        <p>
+          {{$ctrl.distance.TRANSIT.duration.text}}
         </p>
       </div>
       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="A Pé">
         <i class="fa fa-male" aria-hidden="true"></i>
         <p>
-          40min
+          {{$ctrl.distance.WALKING.distance}}
+        </p>
+        <p>
+          {{$ctrl.distance.WALKING.duration.text}}
         </p>
       </div>
     </div>
@@ -55,8 +64,11 @@
 
       <p>
         <i class="fa fa-fw fa-map-o" aria-hidden="true"></i>
-        <span>{{ $ctrl.card.location.latitude }} - {{ $ctrl.card.location.longitude }}</span>
+        <span>{{ $ctrl.card.location.latitude }} / {{ $ctrl.card.location.longitude }}</span>
       </p>
+
+      <div class="map" id="map-{{$ctrl.card.hospitalCode}}"></div>
+
     </div>
 
     <div class="action-buttons row">
@@ -73,7 +85,7 @@
   </div>
 </div>
 
-<div class="hospital-card panel panel-danger currentQueue" data-ng-if="$ctrl.card.currentQueue[0]">
+<div class="hospital-card panel panel-danger currentQueue" data-ng-show="$ctrl.card.currentQueue[0]">
   <div class="panel-heading">
     <h3 class="hospital-card-h3">
       <i class="fa fa-hospital-o" aria-hidden="true"></i> {{ $ctrl.card.name }}
@@ -111,19 +123,28 @@
       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="Carro">
         <i class="fa fa-car" aria-hidden="true"></i>
         <p>
-          40min
+          {{$ctrl.distance.DRIVING.distance}}
+        </p>
+        <p>
+          {{$ctrl.distance.DRIVING.duration.text}}
         </p>
       </div>
       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="Transporte Público">
         <i class="fa fa-bus" aria-hidden="true"></i>
         <p>
-          40min
+          {{$ctrl.distance.TRANSIT.distance}}
+        </p>
+        <p>
+          {{$ctrl.distance.TRANSIT.duration.text}}
         </p>
       </div>
       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="A Pé">
         <i class="fa fa-male" aria-hidden="true"></i>
         <p>
-          40min
+          {{$ctrl.distance.WALKING.distance}}
+        </p>
+        <p>
+          {{$ctrl.distance.WALKING.duration.text}}
         </p>
       </div>
     </div>
@@ -139,8 +160,10 @@
 
       <p>
         <i class="fa fa-fw fa-map-o" aria-hidden="true"></i>
-        <span>{{ $ctrl.card.location.latitude }} - {{ $ctrl.card.location.longitude }}</span>
+        <span>{{ $ctrl.card.location.latitude }} / {{ $ctrl.card.location.longitude }}</span>
       </p>
+
+      <div class="map" id="map-{{$ctrl.card.hospitalCode}}"></div>
     </div>
 
     <div class="action-buttons row">

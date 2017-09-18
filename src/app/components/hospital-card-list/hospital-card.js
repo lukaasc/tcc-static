@@ -6,9 +6,10 @@ import moment from 'moment/min/moment.min';
 class HospitalCardController {
 
   /** @ngInject */
-  constructor($interval, $log, $scope, QueueService, UserService, LocationService, SocketService) {
+  constructor($interval, $log, $scope, $timeout, QueueService, UserService, LocationService, SocketService) {
     this._$interval = $interval;
     this._$log = $log;
+    this._$timeout = $timeout;
 
     this.QueueService = QueueService;
     this.UserService = UserService;
@@ -19,6 +20,7 @@ class HospitalCardController {
     this.arrivalTimeInterval = null;
     this.arrivalTimeDuration = null;
     this.mediumTime = null;
+    this.distance = {};
 
     this._$scope = $scope;
   }
@@ -55,7 +57,57 @@ class HospitalCardController {
     /**
      * Tries to calculate distance matrix from user's location to hospital location
      */
-    this.LocationService.calculateDistanceMatrix(this.card.location);
+    this.calculateDistanceMatrix(this.card.location);
+    this._$timeout(() => {
+      this.drawMap(this.card.location);
+    });
+  }
+
+  calculateDistanceMatrix(location) {
+    /* eslint-disable */
+    const travelModes = [
+      google.maps.TravelMode.DRIVING,
+      google.maps.TravelMode.TRANSIT,
+      google.maps.TravelMode.WALKING
+    ];
+    /* eslint-enable */
+
+    angular.forEach(travelModes, travelMode => {
+      this.LocationService.calculateDistanceMatrix(location, travelMode, (response, status) => {
+        if (status !== 'OK') {
+          this._$log.debug(`Error calculating distance matrix`);
+          return;
+        }
+
+        this.distance[travelMode] = {
+          distance: response.rows[0].elements[0].distance.text,
+          duration: {
+            text: response.rows[0].elements[0].duration.text,
+            value: response.rows[0].elements[0].duration.value
+          }
+        };
+
+        this._$scope.$apply();
+      });
+    });
+  }
+
+  drawMap(location) {
+    /* eslint-disable */
+    this._$log.debug(`ta aqui a div ${document.getElementById(`map-${this.card.hospitalCode}`)}`);
+    var uluru = {
+      lat: Number(location.latitude),
+      lng: Number(location.longitude)
+    };
+    var map = new google.maps.Map(document.getElementById(`map-${this.card.hospitalCode}`), {
+      zoom: 14,
+      center: uluru
+    });
+    var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+    });
+    /* eslint-enable */
   }
 
   joinQueue() {
