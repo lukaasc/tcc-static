@@ -1,4 +1,5 @@
 // const API_KEY = 'AIzaSyDz3fD4w5ymSTanTDm0Sp_o2nC1EJ18JJY';
+// AIzaSyClEBWfi12aeIMEB2JLr5b-locVZWaIQOs
 const REGION = 'pt-BR';
 
 export class LocationService {

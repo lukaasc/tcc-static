@@ -92,20 +92,40 @@ class HospitalCardController {
     });
   }
 
-  drawMap(location) {
-    /* eslint-disable */
-    this._$log.debug(`ta aqui a div ${document.getElementById(`map-${this.card.hospitalCode}`)}`);
-    var uluru = {
-      lat: Number(location.latitude),
-      lng: Number(location.longitude)
+  drawMap(hospitalLocation) {
+    const hospitalPosition = {
+      lat: Number(hospitalLocation.latitude),
+      lng: Number(hospitalLocation.longitude)
     };
-    var map = new google.maps.Map(document.getElementById(`map-${this.card.hospitalCode}`), {
-      zoom: 14,
-      center: uluru
+
+    /* eslint-disable */
+    const map = new google.maps.Map(document.getElementById(`map-${this.card.hospitalCode}`), {
+      zoom: 10,
+      center: hospitalPosition
     });
-    var marker = new google.maps.Marker({
-      position: uluru,
-      map: map
+    /**
+     * Places a PIN on hospital's location
+     */
+    const marker = new google.maps.Marker({
+      position: hospitalPosition,
+      map: map,
+      draggable: true,
+      animation: google.maps.Animation.BOUNCE,
+    });
+
+    /**
+     * Places a PIN on user's current location
+     */
+    this.LocationService.deferred.promise.then(userPosition => {
+      const markerOrigin = new google.maps.Marker({
+        position: {
+          lat: Number(userPosition.coords.latitude),
+          lng: Number(userPosition.coords.longitude)
+        },
+        map: map
+      });
+    }, err => {
+      this._$log.debug(`Unable to mark user's position on map \n${err}`);
     });
     /* eslint-enable */
   }
