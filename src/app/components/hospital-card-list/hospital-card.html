@@ -23,33 +23,39 @@
     <hr>
 
     <div class="row maps-info">
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="Carro">
-        <i class="fa fa-car" aria-hidden="true"></i>
-        <p>
-          {{$ctrl.distance.DRIVING.distance}}
-        </p>
-        <p>
-          {{$ctrl.distance.DRIVING.duration.text}}
-        </p>
+
+      <stand-by data-ng-if="$ctrl.loadingDirections"></stand-by>
+
+      <div data-ng-if="!$ctrl.loadingDirections">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="Carro">
+          <i class="fa fa-car" aria-hidden="true"></i>
+          <p>
+            {{$ctrl.distance.DRIVING.distance}}
+          </p>
+          <p>
+            {{$ctrl.distance.DRIVING.duration.text}}
+          </p>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="Transporte Público">
+          <i class="fa fa-bus" aria-hidden="true"></i>
+          <p>
+            {{$ctrl.distance.TRANSIT.distance}}
+          </p>
+          <p>
+            {{$ctrl.distance.TRANSIT.duration.text}}
+          </p>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="A Pé">
+          <i class="fa fa-male" aria-hidden="true"></i>
+          <p>
+            {{$ctrl.distance.WALKING.distance}}
+          </p>
+          <p>
+            {{$ctrl.distance.WALKING.duration.text}}
+          </p>
+        </div>
       </div>
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="Transporte Público">
-        <i class="fa fa-bus" aria-hidden="true"></i>
-        <p>
-          {{$ctrl.distance.TRANSIT.distance}}
-        </p>
-        <p>
-          {{$ctrl.distance.TRANSIT.duration.text}}
-        </p>
-      </div>
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-attr-title="A Pé">
-        <i class="fa fa-male" aria-hidden="true"></i>
-        <p>
-          {{$ctrl.distance.WALKING.distance}}
-        </p>
-        <p>
-          {{$ctrl.distance.WALKING.duration.text}}
-        </p>
-      </div>
+
     </div>
 
   </div>
@@ -119,7 +125,9 @@
 
   </div>
 
-  <div class="panel-body">
+  <statistic-panel is-visible="$ctrl.isStatistics" data-ng-if="$ctrl.isStatistics"></statistic-panel>
+
+  <div class="panel-body" data-ng-show="!$ctrl.isStatistics">
     <div class="general-info">
       <h4>Informações gerais: </h4>
       <p>
@@ -134,7 +142,7 @@
     <div class="action-buttons row">
 
       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" data-ng-if="!$ctrl.card.currentQueue[0]">
-        <button type="button" class="btn btn-default" data-ng-disabled="true">Estatísticas</button>
+        <button type="button" class="btn btn-default" data-ng-click="$ctrl.showStatistics()">Estatísticas</button>
       </div>
 
 
@@ -149,4 +157,5 @@
 
     </div>
   </div>
+
 </div>

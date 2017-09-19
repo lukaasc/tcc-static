@@ -21,6 +21,8 @@ class HospitalCardController {
     this.arrivalTimeDuration = null;
     this.mediumTime = null;
     this.distance = {};
+    this.loadingDirections = false;
+    this.isStatistics = false;
 
     this._$scope = $scope;
   }
@@ -64,6 +66,7 @@ class HospitalCardController {
   }
 
   calculateDistanceMatrix(location) {
+    this.loadingDirections = true;
     /* eslint-disable */
     const travelModes = [
       google.maps.TravelMode.DRIVING,
@@ -76,6 +79,9 @@ class HospitalCardController {
       this.LocationService.calculateDistanceMatrix(location, travelMode, (response, status) => {
         if (status !== 'OK') {
           this._$log.debug(`Error calculating distance matrix`);
+
+          this.loadingDirections = false;
+          this._$scope.$apply();
           return;
         }
 
@@ -87,6 +93,7 @@ class HospitalCardController {
           }
         };
 
+        this.loadingDirections = false;
         this._$scope.$apply();
       });
     });
@@ -192,6 +199,10 @@ class HospitalCardController {
     duration = moment.utc(duration.as('milliseconds')).format('HH:mm:ss');
 
     this.arrivalTimeDuration = duration;
+  }
+
+  showStatistics() {
+    this.isStatistics = true;
   }
 
   $onDestroy() {
