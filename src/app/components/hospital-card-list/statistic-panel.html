@@ -1,9 +1,21 @@
 <div class="panel-body statistic-panel">
 
-  <div>
-    <h1>TODO</h1>
-
-    <button type="button" class="btn btn-danger" data-ng-click="$ctrl.goBack()">Voltar</button>
+  <div class="well well-lg info">
+    <i class="fa fa-info fa-fw" aria-hidden="true"></i>
+    <label>Informações baseadas nos últimos 5 dias</label>
   </div>
 
+  <div class="graph-area">
+
+    <stand-by data-ng-if="$ctrl.loading"></stand-by>
+
+    <div data-ng-show="!$ctrl.loading" id="container-{{$ctrl.hospitalCode}}" style="width:100%; height:220px;">
+      <div data-ng-if="!$ctrl.data" class="alert" data-ng-class="$ctrl.error? 'alert-danger' : 'alert-warning'" role="alert">
+        <i class="fa fa-info fa-fw" aria-hidden="true" style="font-size: 1.2em"></i> {{$ctrl.errorMessage}}
+      </div>
+    </div>
+
+  </div>
+
+  <button type="button" class="btn btn-danger" data-ng-click="$ctrl.goBack()">Voltar</button>
 </div>

@@ -55,6 +55,13 @@ $red: #cf4646;
   }
   .panel-body {
     text-align: center;
+    min-width: 398px;
+  }
+  .panel-body.ng-hide {
+    @include flip-out();
+  }
+  .panel-body.ng-show {
+    @include flip-out();
   }
   .panel-heading {
     min-width: 270px;
@@ -111,6 +118,18 @@ h4 {
   }
   .leave-queue {
     @include flip-out();
+    background-color: $red;
+  }
+}
+
+.statistic-panel {
+  @include flip-out();
+  height: 100%;
+  .graph-area {
+    width: 100%;
+    height: 220px;
+  }
+  .btn-danger {
     background-color: $red;
   }
 }

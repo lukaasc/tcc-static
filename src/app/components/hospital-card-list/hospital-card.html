@@ -125,7 +125,7 @@
 
   </div>
 
-  <statistic-panel is-visible="$ctrl.isStatistics" data-ng-if="$ctrl.isStatistics"></statistic-panel>
+  <statistic-panel is-visible="$ctrl.isStatistics" hospital-code="$ctrl.card.hospitalCode" data-ng-if="$ctrl.isStatistics"></statistic-panel>
 
   <div class="panel-body" data-ng-show="!$ctrl.isStatistics">
     <div class="general-info">

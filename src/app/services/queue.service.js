@@ -22,4 +22,12 @@ export class QueueService extends BaseService {
   getMediumTime(hospitalCode) {
     return this.doGet(`/api/queue/getMediumTime/${hospitalCode}`);
   }
+
+  getStatistic(hospitalCode) {
+    return this.doGet('/api/queue/statistic', {
+      params: {
+        hospitalCode
+      }
+    });
+  }
 }
