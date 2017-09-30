@@ -23,6 +23,7 @@ class HospitalCardController {
     this.distance = {};
     this.loadingDirections = false;
     this.isStatistics = false;
+    this.isTopChoice = true;
 
     this._$scope = $scope;
   }

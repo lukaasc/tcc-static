@@ -1,3 +1,7 @@
+<div class="well well-sm top-choice" data-ng-if="$ctrl.isTopChoice">
+  <i class="fa fa-star" aria-hidden="true"></i> Melhor opção baseado no tempo de espera e distância até o local.
+</div>
+
 <div class="hospital-card panel" ng-class="!$ctrl.card.currentQueue[0] ? 'panel-primary default' : 'panel-danger currentQueue'">
 
   <div class="panel-heading" data-ng-show="!$ctrl.card.currentQueue[0]">

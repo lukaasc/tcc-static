@@ -25,7 +25,7 @@ class StatisticPanelController {
 
       this.loading = false;
 
-      if (response.data.length < 3) {
+      if (response.data.length < 1) {
         this.data = null;
         this.errorMessage = 'Dados insuficientes para serem exibidos';
 
@@ -52,6 +52,7 @@ class StatisticPanelController {
         mediumTime: element.mediumTime
       });
 
+      this._$log.debug(`tempo ${element.medumTime}`);
       return true;
     });
 
