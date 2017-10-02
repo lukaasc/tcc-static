@@ -1,5 +1,6 @@
 function Socket() {
   const watches = {};
+  const recommendationWatches = [];
 
   return {
     init() {
@@ -10,8 +11,13 @@ function Socket() {
       //const socket = io();
 
       socket.on('hospitalChanged', data => {
-        console.log("Hospital mudou!", data);
         return watches.hasOwnProperty(data.hospitalCode) ? watches[data.hospitalCode](data) : null;
+      });
+
+      socket.on('hospitalRecommendation', data => {
+        angular.forEach(recommendationWatches, watcher => {
+          watcher(data);
+        });
       });
       /* eslint-enable */
     },
@@ -20,6 +26,9 @@ function Socket() {
     },
     unWatch(item) {
       delete watches[item];
+    },
+    subscribe(callback) {
+      recommendationWatches.push(callback);
     }
   };
 }

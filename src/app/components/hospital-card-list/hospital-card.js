@@ -39,6 +39,22 @@ class HospitalCardController {
       this._$log.debug(`Failed trying to retrive medium time for queue [${this.card.hospitalCode}]`);
     });
 
+    this.subscribeToHospitalChangeEvent();
+    this.subscribeToHospitalRecommendationEvent();
+
+    /**
+     * Tries to calculate distance matrix from user's location to hospital location
+     */
+    this.calculateDistanceMatrix(this.card.location);
+    this._$timeout(() => {
+      this.drawMap(this.card.location);
+    });
+  }
+
+  /**
+   * Subscribe for hospital's queue change event
+   */
+  subscribeToHospitalChangeEvent() {
     this.SocketService.watch(this.card.hospitalCode, data => {
       this.mediumTime = data.mediumTime ? data.mediumTime : this.mediumTime;
       this.card.queue = data.queue.length;
@@ -56,13 +72,16 @@ class HospitalCardController {
 
       this._$scope.$apply();
     });
+  }
 
-    /**
-     * Tries to calculate distance matrix from user's location to hospital location
-     */
-    this.calculateDistanceMatrix(this.card.location);
-    this._$timeout(() => {
-      this.drawMap(this.card.location);
+  subscribeToHospitalRecommendationEvent() {
+    this.SocketService.subscribe(data => {
+      toastr.info('Sua fila atual sofreu alterações', data._id);
+
+      toastr.info('distance', this.distance.DRIVING.duration.value);
+
+      // this.isTopChoice;
+      this._$scope.$apply();
     });
   }
 
@@ -197,6 +216,7 @@ class HospitalCardController {
     const now = moment(new Date()); // current date
     const joinDate = moment(new Date(this.card.currentQueue[0].joinDate));
     let duration = moment.duration(now.diff(joinDate));
+
     duration = moment.utc(duration.as('milliseconds')).format('HH:mm:ss');
 
     this.arrivalTimeDuration = duration;
@@ -211,6 +231,7 @@ class HospitalCardController {
       this._$interval.cancel(this.arrivalTimeInterval);
     }
     this.SocketService.unWatch(this.card.hospitalCode);
+    this.SocketService.unWatch(`${this.card.hospitalCode}Recommendation`);
   }
 
 }
