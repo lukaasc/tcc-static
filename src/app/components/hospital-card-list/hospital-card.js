@@ -40,7 +40,6 @@ class HospitalCardController {
     });
 
     this.subscribeToHospitalChangeEvent();
-    this.subscribeToHospitalRecommendationEvent();
 
     /**
      * Tries to calculate distance matrix from user's location to hospital location
@@ -70,17 +69,6 @@ class HospitalCardController {
         this._$interval.cancel(this.arrivalTimeInterval);
       }
 
-      this._$scope.$apply();
-    });
-  }
-
-  subscribeToHospitalRecommendationEvent() {
-    this.SocketService.subscribe(data => {
-      toastr.info('Sua fila atual sofreu alterações', data._id);
-
-      toastr.info('distance', this.distance.DRIVING.duration.value);
-
-      // this.isTopChoice;
       this._$scope.$apply();
     });
   }
@@ -137,7 +125,7 @@ class HospitalCardController {
       position: hospitalPosition,
       map: map,
       draggable: true,
-      animation: google.maps.Animation.BOUNCE,
+      animation: google.maps.Animation.DROP,
     });
 
     /**
@@ -149,7 +137,9 @@ class HospitalCardController {
           lat: Number(userPosition.coords.latitude),
           lng: Number(userPosition.coords.longitude)
         },
-        map: map
+        map: map,
+        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+        animation: google.maps.Animation.DROP,
       });
     }, err => {
       this._$log.debug(`Unable to mark user's position on map \n${err}`);
