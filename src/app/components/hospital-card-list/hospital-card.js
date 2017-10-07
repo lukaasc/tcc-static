@@ -6,7 +6,7 @@ import moment from 'moment/min/moment.min';
 class HospitalCardController {
 
   /** @ngInject */
-  constructor($interval, $log, $scope, $timeout, QueueService, UserService, LocationService, SocketService) {
+  constructor($interval, $log, $scope, $timeout, QueueService, UserService, LocationService, RecommendationService, SocketService) {
     this._$interval = $interval;
     this._$log = $log;
     this._$timeout = $timeout;
@@ -15,6 +15,7 @@ class HospitalCardController {
     this.UserService = UserService;
     this.LocationService = LocationService;
     this.SocketService = SocketService;
+    this.RecommendationService = RecommendationService;
 
     this.username = UserService.currentUser.username;
     this.arrivalTimeInterval = null;
@@ -23,7 +24,7 @@ class HospitalCardController {
     this.distance = {};
     this.loadingDirections = false;
     this.isStatistics = false;
-    this.isTopChoice = true;
+    this.isTopChoice = false;
 
     this._$scope = $scope;
   }
@@ -100,6 +101,10 @@ class HospitalCardController {
             value: response.rows[0].elements[0].duration.value
           }
         };
+
+        if (travelMode === 'DRIVING') {
+          this.updateRecommendationService();
+        }
 
         this.loadingDirections = false;
         this._$scope.$apply();
@@ -216,12 +221,37 @@ class HospitalCardController {
     this.isStatistics = true;
   }
 
+  // provides hospital information to recommendation service
+  updateRecommendationService() {
+    this._$log.debug('Updating recommendation service');
+
+    if (this.distance.DRIVING && this.mediumTime) {
+      const m = moment(this.mediumTime, 'HH:mm:ss')
+        .add(this.distance.DRIVING.duration.value, 's');
+
+      this.RecommendationService.subscribe({
+        hospitalCode: this.card.hospitalCode,
+        data: {
+          totalTime: m.unix(),
+          callback: () => {
+            if (this.card.hospitalCode === this.RecommendationService.recommendedHospital.hospitalCode) {
+              this.isTopChoice = true;
+              return;
+            }
+            this.isTopChoice = false;
+          }
+        }
+      });
+    }
+  }
+
   $onDestroy() {
     if (this.arrivalTimeInterval) {
       this._$interval.cancel(this.arrivalTimeInterval);
     }
     this.SocketService.unWatch(this.card.hospitalCode);
     this.SocketService.unWatch(`${this.card.hospitalCode}Recommendation`);
+    this.RecommendationService.unsubscribe(this.card.hospitalCode);
   }
 
 }
