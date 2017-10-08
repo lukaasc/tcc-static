@@ -25,6 +25,7 @@ class HospitalCardController {
     this.loadingDirections = false;
     this.isStatistics = false;
     this.isTopChoice = false;
+    this.loadingButton = false;
 
     this._$scope = $scope;
   }
@@ -162,6 +163,8 @@ class HospitalCardController {
 
   joinQueue() {
     if (this.username) {
+      this.loadingButton = true;
+
       this.QueueService.joinQueue({
         hospitalCode: this.card.hospitalCode,
         username: this.username
@@ -183,12 +186,16 @@ class HospitalCardController {
           err.data,
           'error'
         );
+      }).finally(() => {
+        this.loadingButton = false;
       });
     }
   }
 
   leaveQueue() {
     if (this.username) {
+      this.loadingButton = true;
+
       this.QueueService.leaveQueue({
         hospitalCode: this.card.hospitalCode,
         username: this.username
@@ -204,6 +211,8 @@ class HospitalCardController {
           err.data,
           'error'
         );
+      }).finally(() => {
+        this.loadingButton = false;
       });
     }
   }

@@ -12,9 +12,14 @@ class LoginController {
 
     this._state = $state;
     this.UserService = UserService;
+
+    this.loadingLogin = false;
+    this.loadingRegister = false;
   }
 
   register() {
+    this.loadingRegister = true;
+
     this.UserService.doPost('/api/login/register', this.newUser).then(response => {
       swal(
         'Sucesso!',
@@ -28,10 +33,14 @@ class LoginController {
         error.data,
         'error'
       );
+    }).finally(() => {
+      this.loadingRegister = false;
     });
   }
 
   login() {
+    this.loadingLogin = true;
+
     this.UserService.doLogin(this.user).then(() => {
       this._state.go('app.home');
     }, error => {
@@ -41,6 +50,8 @@ class LoginController {
         error.data,
         'error'
       );
+    }).finally(() => {
+      this.loadingLogin = false;
     });
   }
 }

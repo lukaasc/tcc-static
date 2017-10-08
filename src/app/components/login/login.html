@@ -16,7 +16,10 @@
           <input type="password" class="form-control" data-ng-model="$ctrl.user.password" placeholder="Senha" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Entrar <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+        <button type="submit" class="btn btn-primary" data-ng-disabled="$ctrl.loadingLogin">
+          <i class="fa fa-spinner fa-spin fa-fw" data-ng-if="$ctrl.loadingLogin"></i>Entrar
+          <i class="fa fa-sign-in" aria-hidden="true" data-ng-disabled="!$ctrl.loadingLogin"></i>
+          </button>
       </form>
 
     </div>
@@ -34,7 +37,10 @@
           <input type="email" class="form-control" data-ng-model="$ctrl.newUser.email" placeholder="E-mail" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Registrar <i class="fa fa-chevron-circle-up" aria-hidden="true"></i></button>
+        <button type="submit" class="btn btn-primary" data-ng-disable="$ctrl.loadingRegister">
+            <i class="fa fa-spinner fa-spin fa-fw" data-ng-if="$ctrl.loadingRegister"></i>Registrar 
+          <i class="fa fa-chevron-circle-up" aria-hidden="true" data-ng-if="!$ctrl.loadingRegister"></i>
+        </button>
       </form>
 
     </div>
