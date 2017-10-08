@@ -49,6 +49,14 @@ class HospitalCardController {
     this._$timeout(() => {
       this.drawMap(this.card.location);
     });
+
+    /**
+     * Watches mediumTime to update recommendation service
+     */
+    this._$scope.$watch(() => this.mediumTime,
+      () => {
+        this.updateRecommendationService();
+      });
   }
 
   /**
@@ -223,8 +231,6 @@ class HospitalCardController {
 
   // provides hospital information to recommendation service
   updateRecommendationService() {
-    this._$log.debug('Updating recommendation service');
-
     if (this.distance.DRIVING && this.mediumTime) {
       const m = moment(this.mediumTime, 'HH:mm:ss')
         .add(this.distance.DRIVING.duration.value, 's');

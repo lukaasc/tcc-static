@@ -12,8 +12,6 @@ export class RecommendationService {
   }
 
   calculateRecommendedHospital() {
-    this._$log.debug(`Checking best hospital recommendation`);
-
     angular.forEach(this.hospitals, (hospital, index) => {
       if (index === 0) {
         this.recommendedHospital = {

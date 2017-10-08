@@ -36,6 +36,9 @@ $red: #cf4646;
   .hospital-card {
     width: 670px;
     display: flex;
+    .panel-body {
+      min-width: 398px;
+    }
   }
 }
 
