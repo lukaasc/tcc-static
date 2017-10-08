@@ -1,3 +1,13 @@
+@media only screen and (max-width: 500px) {
+  /* For mobile phones: */
+  .login-component {
+    .row {
+      position: relative !important;
+      display: table-cell !important;
+    }
+  }
+}
+
 .login-component {
   width: 100%;
   height: 100%;
@@ -10,7 +20,7 @@
     filter: blur(1px);
   }
   .row {
-    display: list-item;
+    position: fixed;
     max-width: 60%;
     max-height: 50%;
     top: 0;
