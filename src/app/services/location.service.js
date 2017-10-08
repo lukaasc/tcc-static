@@ -29,8 +29,6 @@ export class LocationService {
 
   calculateDistanceMatrix(hospitalLocation, travelMode, callback) {
     this.deferred.promise.then(position => {
-      this._$log.debug(`User GeoLocation ${position} ${hospitalLocation}`);
-
       /* eslint-disable */
       const service = new google.maps.DistanceMatrixService();
       service.getDistanceMatrix({

@@ -224,7 +224,6 @@ class HospitalCardController {
   }
 
   calculateArrivalTime() {
-    this._$log.debug('Calculating arrivalTime for current queue...');
     const now = moment(new Date()); // current date
     const joinDate = moment(new Date(this.card.currentQueue[0].joinDate));
     let duration = moment.duration(now.diff(joinDate));
