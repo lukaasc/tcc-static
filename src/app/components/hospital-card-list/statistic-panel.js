@@ -52,7 +52,6 @@ class StatisticPanelController {
         mediumTime: element.mediumTime
       });
 
-      this._$log.debug(`tempo ${element.medumTime}`);
       return true;
     });
 

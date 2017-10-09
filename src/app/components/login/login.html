@@ -18,7 +18,7 @@
 
         <button type="submit" class="btn btn-primary" data-ng-disabled="$ctrl.loadingLogin">
           <i class="fa fa-spinner fa-spin fa-fw" data-ng-if="$ctrl.loadingLogin"></i>Entrar
-          <i class="fa fa-sign-in" aria-hidden="true" data-ng-disabled="!$ctrl.loadingLogin"></i>
+          <i class="fa fa-sign-in" aria-hidden="true" data-ng-if="!$ctrl.loadingLogin"></i>
           </button>
       </form>
 
